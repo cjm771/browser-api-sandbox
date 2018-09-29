@@ -17,23 +17,53 @@ class Saber{
         this.lastTime = 0;
         this.lastTime02 = 0;
         this.throttle = 200;
-        this.logger1 =  this.Logger(document.querySelector('.dialog .content'));
+
+        this.logger1 =  this.Logger(document.querySelector('.dialog .content1'));
         this.logger2 =  this.Logger(document.querySelector('.dialog .content2'));
         // DOM settings
+        this.$dialog = document.querySelector('.dialog ');
         this.$humButton = document.querySelector('.hum');
-        this.$hideLogsButton
+        this.$saber = document.querySelector('.lightsaber input');
+
+        this.$hideLogsButton = document.querySelector('.logToggle');
+
+        // init dom events 
+        this.domEventInit();
+        // start this puppy
+        this.startAcceloReadout();
+    }
+
+    domEventInit() {
+
+        // synonymous with hum thing..
+        this.$saber.addEventListener('click', () => {
+            this.$humButton.dispatchEvent(new Event('click'));
+        });
+        //enable disable hum
         this.$humButton.addEventListener('click', () => {
             this.$humButton.classList.toggle('on');
             if (this.$humButton.classList.contains('on')) {
                 this.startHum();
                 this.$humButton.innerText = 'End Hum';
+                this.$saber.checked = true;
             } else {
                 this.endHum();
                 this.$humButton.innerText = 'Start Hum';
+                this.$saber.checked = false;
             }
-        })
-        // start this puppy
-        this.startAcceloReadout();
+        });
+
+        // toggle logs
+        this.$hideLogsButton.addEventListener('click', () => {
+            this.$hideLogsButton.classList.toggle('on');
+            if (this.$hideLogsButton.classList.contains('on')) {
+                this.$dialog.style.display = 'block';
+                this.$hideLogsButton.innerText = 'Hide Logs';
+            } else {
+                this.$dialog.style.display = 'none';
+                this.$hideLogsButton.innerText = 'Show Logs';
+            }
+        });
     }
 
     startAcceloReadout() {

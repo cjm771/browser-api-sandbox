@@ -1,19 +1,63 @@
+body {
+  background: pink;
+  font-family: 'Ropa Sans', Arial, Helvetica, sans-serif;
+
+}
+
+.buttonBar{
+  position: fixed;
+  z-index: 90000;
+  top: 10;
+  left: 0;
+  text-align: center;
+}
+
+button {
+  display: inline-block;
+  background: none;
+  border: none;
+
+}
+
+button:focus {
+  outline: none;
+  
+}
+
+@media (hover:hover) {
+  /* Primary Input responds to hover fully, such as a mouse or a Nintendo Wii controller */
+  button:hover {
+    cursor: pointer;
+    color: #fff;
+    
+  }
+}
+
+.content{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
 .dialog{
-  background: #000;
+  background: rgba(0,0,0, .65);
   position: fixed;
   width: 100%;
+  text-align: center;
   bottom: 0;
   left:0;
   font-family: courier, monospace;
   color: #fff;
 }
 
-.dialog div{
+.dialog div.logger{
   border-top:1px solid #fff;
   padding: 20px;
+  text-align: left;
   font-size: 10px;
 }
 
-.dialog div .error{
+.dialog div.logger .error{
   color: #ff0000;
 }

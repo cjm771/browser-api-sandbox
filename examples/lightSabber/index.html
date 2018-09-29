@@ -5,21 +5,35 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Accelerometer test</title>
   <meta name="viewport" content="width=device-width, user-scalable=no">
-  
+  <link href="https://fonts.googleapis.com/css?family=Ropa+Sans" rel="stylesheet">
+  <!-- go this lightsaber from here: https://codepen.io/ncerminara/pen/KzurJ yes its beautiful-->
+  <link rel="stylesheet" type="text/css" media="screen" href="lib/lightsaber.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
   <script src="lightsabber.js"></script>
   <script src="main.js"></script>
 </head>
 <body>
-  <button class='hum'>Start hum</button>
-  <button class='logToggle'>Hide logs</button>
-  <div class='dialog'>
-    <div class='content'>
+  <div class='buttonBar'>
+    <button class='hum'>Start hum</button>
+    <button class='logToggle'>Show logs</button>
+  </div>
+  <div class='content'>
+      <div class="lightsaber">
+          <div >
+            <label for="yoda-example"></label>
+            <input type="checkbox" id="yoda-example">
+            <div class="switch"></div>
+            <div class="plasma yoda"></div>
+          </div>
+      </div> 
+  </div>  
+  <div class='dialog' style='display: none;'>
+    <div class='logger content1'>
       Motion Log
     </div>
-    <div class='content2'>
+    <div class='logger content2'>
       Orientation Log
-      </div>
+      </div> 
   </div>
 </body>
 </html>
