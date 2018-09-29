@@ -3,7 +3,7 @@
  * Light saber by Chris Malcol (c) 2018
  * 
  * Example of Accelorometer motion + orientation.
- * Also does som web audio oscillator stuff.
+ * Also does some web audio oscillator stuff.
  * 
  */
 class Saber{
@@ -13,17 +13,22 @@ class Saber{
         this.audioCtx = null;
         this.oscillatorNode =  null;
         this.distortionGainNode = null;
+        this.acceloEvtTriggered = false;
         // logging settings
         this.lastTime = 0;
         this.lastTime02 = 0;
         this.throttle = 200;
+        
+        // orientation
+        this.upAngle = null;
 
         this.logger1 =  this.Logger(document.querySelector('.dialog .content1'));
         this.logger2 =  this.Logger(document.querySelector('.dialog .content2'));
         // DOM settings
         this.$dialog = document.querySelector('.dialog ');
         this.$humButton = document.querySelector('.hum');
-        this.$saber = document.querySelector('.lightsaber input');
+        this.$saber = document.querySelector('.lightsaber');
+        this.$saberInput = document.querySelector('.lightsaber input');
 
         this.$hideLogsButton = document.querySelector('.logToggle');
 
@@ -36,7 +41,7 @@ class Saber{
     domEventInit() {
 
         // synonymous with hum thing..
-        this.$saber.addEventListener('click', () => {
+        this.$saberInput.addEventListener('click', () => {
             this.$humButton.dispatchEvent(new Event('click'));
         });
         //enable disable hum
@@ -45,11 +50,11 @@ class Saber{
             if (this.$humButton.classList.contains('on')) {
                 this.startHum();
                 this.$humButton.innerText = 'End Hum';
-                this.$saber.checked = true;
+                this.$saberInput.checked = true;
             } else {
                 this.endHum();
                 this.$humButton.innerText = 'Start Hum';
-                this.$saber.checked = false;
+                this.$saberInput.checked = false;
             }
         });
 
@@ -73,11 +78,19 @@ class Saber{
         this.logger2.log('orientation tracking starting...');
         window.addEventListener("deviceorientation", this.handleOrientation.bind(this), true);
         window.addEventListener("devicemotion", this.handleMotion.bind(this), true);
+        // some browsers still have the event but really dont have it working..so if evt not triggered in 5.. error out.
+        setTimeout(() => {
+            if (this.acceloEvtTriggered === false) {
+                this.logger1.error('Its been a hot second..probably accelorometer isn\'t supported :(');
+                this.logger2.error('Its been a hot second..probably accelorometer isn\'t supported :(');
+            }
+        }, 5000);
         // this.startHum();
     }
     
     // how fast phone moves!
     handleMotion(e) {
+        this.acceloEvtTriggered = true;
         if (Date.now() - this.lastTime >  this.throttle ) {
             this.logger1.clearLog();
             //  how fast we rotating!
@@ -121,6 +134,15 @@ class Saber{
                 'plane rotation (on a table, 0 = north pole):<br/>', e.alpha, '<br/>',
                 'center short axis (0 = parallel to earth):<br/>', e.beta, '<br/>', 
                 'center long axis (0 = parallel to earth surface):<br/> ', e.gamma, '<br/>');
+            if (this.oscillatorNode) {
+                if (this.upAngle === null) {
+                    this.upAngle = e.alpha; // we'll assume the user had it facing up right (portraight)
+                }
+                // do some css magic brah
+                this.$saber.style.transform = `rotateZ(${ this.upAngle - (e.alpha)}deg) rotateX(${-1 * 90 + e.beta}deg)`;
+            }
+            
+            
             this.lastTime02 = Date.now();
         }
     }

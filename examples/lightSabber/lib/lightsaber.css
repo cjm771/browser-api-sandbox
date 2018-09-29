@@ -1,8 +1,7 @@
 .lightsaber { 
     /* transform: rotateZ(45deg) rotateX(80deg);  */
-    transition: transform 1s ease-in-out;
+    transition: transform 0.5s ease-in-out;
     position: absolute;
-
     margin: 0px auto;
     top: 70%;
 
