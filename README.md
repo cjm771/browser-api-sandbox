@@ -13,6 +13,12 @@ Current examples :
   - web audio (creation / analysis)
   - accelerometer
 
+# AudioAnalyzer
+
+Working example of audio analyzer in seperate repo:
+
+https://github.com/cjm771/AudioAnalyzer.js
+
 # Acellosaber
 
 I also made a small light saber app to demonstrate oscillator + css 3d transforms = accelorometer = fun. Check that out at https://accelosaber.herokuapp.com/ (made for mobile fam.)

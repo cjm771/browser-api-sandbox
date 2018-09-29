@@ -1,8 +1,8 @@
 /**
  * 
- * Light saber by Chris Malcol (c) 2018
+ * Light saber by Chris Malcolm (c) 2018
  * 
- * Example of Accelorometer motion + orientation.
+ * Example of Accelerometer motion + orientation.
  * Also does some web audio oscillator stuff.
  * 
  */
