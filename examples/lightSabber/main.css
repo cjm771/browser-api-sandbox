@@ -1,0 +1,19 @@
+.dialog{
+  background: #000;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  left:0;
+  font-family: courier, monospace;
+  color: #fff;
+}
+
+.dialog div{
+  border-top:1px solid #fff;
+  padding: 20px;
+  font-size: 10px;
+}
+
+.dialog div .error{
+  color: #ff0000;
+}
